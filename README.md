@@ -1,4 +1,4 @@
-# Conoha VPS CLI Tool
+# ConoHa VPS CLI Tool
 
 ## TODOs
 
