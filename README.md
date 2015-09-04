@@ -26,3 +26,9 @@
 
 * https://www.conoha.jp/conoben/archives/10025
 * http://docs.ruby-lang.org/ja/2.0.0/library/net=2fhttps.html
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright (C) 2015 ka
