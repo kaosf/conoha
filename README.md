@@ -1,5 +1,10 @@
 # ConoHa VPS CLI Tool
 
+[![Gem Version](https://badge.fury.io/rb/conoha.svg)](http://badge.fury.io/rb/conoha)
+[![Dependency Status](https://gemnasium.com/kaosf/conoha.svg)](https://gemnasium.com/kaosf/conoha)
+[![Build Status](https://travis-ci.org/kaosf/conoha.svg)](https://travis-ci.org/kaosf/conoha)
+[![Code Climate](https://codeclimate.com/github/kaosf/conoha/badges/gpa.svg)](https://codeclimate.com/github/kaosf/conoha)
+
 CLI tool for management ConoHa VPS.
 
 [ConoHa VPS](https://www.conoha.jp/en)
