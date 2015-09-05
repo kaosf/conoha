@@ -4,11 +4,20 @@
 require 'conoha'
 require 'pp'
 
+subcommand = ARGV.shift
+
 Conoha.init!
 
-case ARGV.first
+case subcommand
 when 'create'
-  pp Conoha.create *ARGV[1..-1]
+  pp Conoha.create *ARGV
+when 'delete'
+  exit 1 if ARGV.size != 1
+  server_id = ARGV.first
+  unless server_id.length == '01234567-89ab-cdef-0123-456789abcdef'.length
+    server_id = Conoha.vps_list[server_id.to_i]
+  end
+  puts Conoha.delete server_id
 else
   STDERR.puts 'Error'
 end
