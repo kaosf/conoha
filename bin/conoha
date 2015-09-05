@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# vim: filetype=ruby
+
+require 'conoha'
+require 'pp'
+
+Conoha.init!
+
+case ARGV.first
+when 'create'
+  pp Conoha.create *ARGV[1..-1]
+else
+  STDERR.puts 'Error'
+end
