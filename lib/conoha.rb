@@ -311,7 +311,6 @@ EOS
   end
 
   def self.randstr
-    require 'securerandom'
-    SecureRandom.hex 32
+    ['0'..'9', 'a'..'z', 'A'..'Z'].map(&:to_a).flatten.sample(60).join
   end
 end
