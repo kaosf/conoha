@@ -74,7 +74,7 @@ EOS
     req['X-Auth-Token'] = authtoken
     payload = {
       server: {
-        adminPass: "zfw7bS499ytGoh5Lb2XhZPCojxKpOkPCbE4unbRQ",
+        adminPass: randstr,
         imageRef: image_ref_from_os(os),
         flavorRef: flavor_ref(ram),
         key_name: public_key,
