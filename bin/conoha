@@ -8,16 +8,26 @@ subcommand = ARGV.shift
 
 Conoha.init!
 
+def server_id(server_id_or_index)
+  if server_id_or_index.length == '01234567-89ab-cdef-0123-456789abcdef'.length
+    server_id_or_index
+  else
+    Conoha.vps_list[server_id_or_index.to_i]
+  end
+end
+
 case subcommand
 when 'create'
   pp Conoha.create *ARGV
 when 'delete'
   exit 1 if ARGV.size != 1
-  server_id = ARGV.first
-  unless server_id.length == '01234567-89ab-cdef-0123-456789abcdef'.length
-    server_id = Conoha.vps_list[server_id.to_i]
-  end
-  puts Conoha.delete server_id
+  puts Conoha.delete server_id(ARGV.first)
+when 'boot'
+  exit 1 if ARGV.size != 1
+  puts Conoha.boot server_id(ARGV.first)
+when 'shutdown'
+  exit 1 if ARGV.size != 1
+  puts Conoha.shutdown server_id(ARGV.first)
 else
   STDERR.puts 'Error'
 end
