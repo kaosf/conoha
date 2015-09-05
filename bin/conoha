@@ -17,6 +17,9 @@ def server_id(server_id_or_index)
 end
 
 case subcommand
+when 'authenticate'
+  Conoha.authenticate!
+  puts 'Succeeded!'
 when 'vpslist'
   pp Conoha.vps_list
 when 'ipaddress'
@@ -33,6 +36,21 @@ when 'boot'
 when 'shutdown'
   exit 1 if ARGV.size != 1
   puts Conoha.shutdown server_id(ARGV.first)
+when 'imagelist'
+  pp Conoha.images
+when 'imagecreate'
+  exit 1 if ARGV.size != 2
+  name = ARGV[1]
+  puts Conoha.create_image server_id(ARGV[0]), name
+when 'imagedelete'
+  exit 1 if ARGV.size != 1
+  image_ref = ARGV.first
+  puts Conoha.delete_image image_ref
+when 'createfromimage'
+  exit 1 if ARGV.size != 2
+  image_ref = ARGV[0]
+  ram = ARGV[1]
+  puts Conoha.create_from_image image_ref, ram
 else
   STDERR.puts 'Error'
 end
