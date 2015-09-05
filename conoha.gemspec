@@ -5,7 +5,7 @@ require 'conoha/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "conoha"
-  spec.version       = Conoha::VERSION
+  spec.version       = ConohaVersion::ITSELF
   spec.authors       = ["ka"]
   spec.email         = ["ka.kaosf@gmail.com"]
 
