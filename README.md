@@ -84,6 +84,18 @@ conoha imagedelete fedcba98-7654-3210-fedc-ba9876543210
 
 # Create a VPS from a saved image
 conoha createfromimage fedcba98-7654-3210-fedc-ba9876543210 g-1gb
+
+# SSH
+conoha ssh 01234567-89ab-cdef-0123-456789abcdef root     # ssh root@ipaddress
+conoha ssh 01234567-89ab-cdef-0123-456789abcdef yourname # ssh yourname@ipaddress
+conoha ssh 01234567-89ab-cdef-0123-456789abcdef          # ssh ipaddress
+
+# Mosh
+conoha mosh 01234567-89ab-cdef-0123-456789abcdef root # mosh root@ipaddress
+
+# Launch Web browser
+conoha browse 01234567-89ab-cdef-0123-456789abcdef      # xdg-open http://ipaddress
+conoha browse 01234567-89ab-cdef-0123-456789abcdef 3000 # xdg-open http://ipaddress:3000
 ```
 
 ## Development
