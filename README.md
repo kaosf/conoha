@@ -115,6 +115,9 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/kaosf/
 - [x] delete image
 - [ ] public keys
 - [x] make as a gem
+- [ ] remove `curl` command from authenticate
+- [ ] help message
+- [ ] subcommand help messages
 
 ### Code
 
