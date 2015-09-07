@@ -2,6 +2,7 @@
 # vim: filetype=ruby
 
 require 'conoha'
+require 'conoha/util'
 require 'pp'
 
 subcommand = ARGV.shift
@@ -53,20 +54,20 @@ when 'createfromimage'
   puts Conoha.create_from_image image_ref, ram
 when 'ssh'
   exit 1 if ARGV.size < 1 || 2 < ARGV.size
-  ipaddress = Conoha.ip_address_of(server_id(ARGV.first))[1]
+  ipaddress = ipv4(Conoha.ip_address_of(server_id(ARGV.first)))
   user = ARGV[1].nil? ? '' : "#{ARGV[1]}@"
   command = "ssh -oStrictHostKeyChecking=no #{user}#{ipaddress}"
   puts command
   system command
 when 'mosh'
   exit 1 if ARGV.size != 1
-  ipaddress = Conoha.ip_address_of(server_id(ARGV.first))[1]
+  ipaddress = ipv4(Conoha.ip_address_of(server_id(ARGV.first)))
   command = "mosh #{ipaddress}"
   puts command
   system command
 when 'browse'
   exit 1 if ARGV.size < 1 || 2 < ARGV.size
-  ipaddress = Conoha.ip_address_of(server_id(ARGV.first))[1]
+  ipaddress = ipv4(Conoha.ip_address_of(server_id(ARGV.first)))
   port = ARGV[1].nil? ? '' : ":#{ARGV[1]}"
   command = "xdg-open http://#{ipaddress}#{port}"
   puts command
