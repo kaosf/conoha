@@ -1,4 +1,4 @@
-require 'test/unit'
+require 'test_helper'
 require 'conoha/util'
 
 class TestConohaUtil < Test::Unit::TestCase
