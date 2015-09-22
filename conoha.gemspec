@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "test-unit", "~> 3.1.3"
+  spec.add_development_dependency "test-unit-notify", "~> 1.0.4"
   spec.add_development_dependency "guard", "~> 2.13.0"
   spec.add_development_dependency "guard-test", "~> 2.0.6"
 end
