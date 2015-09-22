@@ -1,38 +1,15 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
+# vim: ft=ruby
 
-## Uncomment and set this to only include directories you want to watch
-# directories %w(app lib config test spec features) \
-#  .select{|d| Dir.exists?(d) ? d : UI.warning("Directory #{d} does not exist")}
+# @param [String] m1 e.g. 'foo/bar/a' when the matched string is 'lib/foo/bar/a.rb'
+# @return [String] e.g. 'test/foo/bar/test_a.rb' when m1 is 'foo/bar/a'
+def lib2test(m1)
+  "test/#{File.dirname m1}/test_#{File.basename m1}.rb"
+end
 
-## Note: if you are using the `directories` clause above and you are not
-## watching the project directory ('.'), then you will want to move
-## the Guardfile to a watched dir and symlink it back, e.g.
-#
-#  $ mkdir config
-#  $ mv Guardfile config/
-#  $ ln -s config/Guardfile .
-#
-# and, you'll have to watch "config/Guardfile" instead of "Guardfile"
-
-guard :test do
-  watch(%r{^test/.+_test\.rb$})
-  watch('test/test_helper.rb')  { 'test' }
-
-  # Non-rails
-  watch(%r{^lib/(.+)\.rb$}) { |m| "test/#{m[1]}_test.rb" }
-
-  # Rails 4
-  # watch(%r{^app/(.+)\.rb})                               { |m| "test/#{m[1]}_test.rb" }
-  # watch(%r{^app/controllers/application_controller\.rb}) { 'test/controllers' }
-  # watch(%r{^app/controllers/(.+)_controller\.rb})        { |m| "test/integration/#{m[1]}_test.rb" }
-  # watch(%r{^app/views/(.+)_mailer/.+})                   { |m| "test/mailers/#{m[1]}_mailer_test.rb" }
-  # watch(%r{^lib/(.+)\.rb})                               { |m| "test/lib/#{m[1]}_test.rb" }
-
-  # Rails < 4
-  # watch(%r{^app/models/(.+)\.rb$})                   { |m| "test/unit/#{m[1]}_test.rb" }
-  # watch(%r{^app/controllers/(.+)\.rb$})              { |m| "test/functional/#{m[1]}_test.rb" }
-  # watch(%r{^app/views/(.+)/.+\.erb$})                { |m| "test/functional/#{m[1]}_controller_test.rb" }
-  # watch(%r{^app/views/.+$})                          { 'test/integration' }
-  # watch('app/controllers/application_controller.rb') { ['test/functional', 'test/integration'] }
+guard :test, cli: '-Itest --notify' do
+  watch('test/test_helper.rb') { 'test' }
+  watch('test/test_conoha.rb')
+  watch('lib/conoha.rb') { 'test/test_conoha.rb' }
+  watch(%r{^test/.+\/test_.+\.rb$})
+  watch(%r{^lib/(.+)\.rb$}) { |m| lib2test m[1] }
 end
