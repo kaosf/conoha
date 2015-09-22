@@ -6,7 +6,8 @@ class TestConohaUtil < Test::Unit::TestCase
     "IPv4 first" => ["111.111.111.111", ["111.111.111.111", "1111:1111:1111:1111:1111:1111:1111:1111"]],
     "IPv4 last"  => ["111.111.111.111", ["1111:1111:1111:1111:1111:1111:1111:1111", "111.111.111.111"]],
   )
-  test ".ipv4" do |data|
-    assert_equal data[0], ipv4(data[1])
+  test ".ipv4" do |(expected, input)|
+    actual = ipv4 input
+    assert_equal expected, actual
   end
 end
