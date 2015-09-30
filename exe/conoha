@@ -17,6 +17,19 @@ def server_id(server_id_or_index)
   end
 end
 
+def image_ref_or_name(str)
+  if str.length == '01234567-89ab-cdef-0123-456789abcdef'.length
+    str
+  else
+    x = Conoha.images.find { |e| e[0] == str }
+    if x.nil?
+      STDERR.puts "There is no image the name \"#{str}\"."
+      exit 1
+    end
+    x[1]
+  end
+end
+
 case subcommand
 when 'authenticate'
   Conoha.authenticate!
@@ -49,7 +62,7 @@ when 'imagedelete'
   puts Conoha.delete_image image_ref
 when 'createfromimage'
   exit 1 if ARGV.size != 2
-  image_ref = ARGV[0]
+  image_ref = image_ref_or_name ARGV[0]
   ram = ARGV[1]
   puts Conoha.create_from_image image_ref, ram
 when 'ssh'
