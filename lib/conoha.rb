@@ -10,24 +10,12 @@ class Conoha
   end
 
   def self.authenticate!
-    #uri = URI.parse 'https://identity.tyo1.conoha.io/v2.0/tokens'
-    #https = Net::HTTP.new(uri.host, uri.port)
-    #https.use_ssl = true
-    #req = Net::HTTP::Post.new(uri.request_uri)
-    #req['Content-Type'] = 'application/json'
-    #payload = {
-    #  auth: {
-    #    passwordCredentials: {
-    #      username: $USERNAME,
-    #      password: $PASSWORD
-    #    },
-    #    tenant_id: $TENANT_ID
-    #  }
-    #}.to_json
-    #req.body = payload
-    #res = https.request(req)
-
-    req_json = JSON.generate({
+    uri = URI.parse 'https://identity.tyo1.conoha.io/v2.0/tokens'
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+    req = Net::HTTP::Post.new(uri.request_uri)
+    req['Content-Type'] = 'application/json'
+    payload = {
       auth: {
         passwordCredentials: {
           username: @@username,
@@ -35,18 +23,10 @@ class Conoha
         },
         tenantId: @@tenant_id
       }
-    })
-    command = <<EOS
-curl -X POST -H "Accept: application/json" \
-  -d '#{req_json}' \
-  https://identity.tyo1.conoha.io/v2.0/tokens 2> /dev/null
-EOS
-    result = `#{command}`
-
-    #token = JSON.parse(res.body)["access"]["token"]["id"]
-    token = JSON.parse(result)["access"]["token"]["id"]
-
-    @@authtoken = token
+    }.to_json
+    req.body = payload
+    res = https.request(req)
+    @@authtoken = JSON.parse(res.body)["access"]["token"]["id"]
     save_config!
   end
 
