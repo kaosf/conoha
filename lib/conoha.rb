@@ -250,12 +250,11 @@ EOS
 
   def self.image_ref_from_os(os)
     dictionary = {
-      'ubuntu'   => '2b03327f-d453-4c7d-91c9-8b9924b6ea88', # Ubuntu 14.04 amd64
+      'ubuntu'   => '4952b4e5-67bb-4f84-991f-9f3f1647d63d', # Ubuntu 14.04 amd64
       'centos66' => '14961158-a69c-4af1-b375-b9a72982837d', # CentOS 6.6
       'centos67' => '91944101-df61-4c41-b7c5-76cebfc48318', # CentOS 6.7
       'centos71' => 'edc9457e-e4a8-4974-8217-c254d215b460', # CentOS 7.1
-      'arch'     => 'b5c921c5-2f71-4cfe-9c5a-5783ce0be87b', # Arch
-      'centos66owncloud' => 'fa67ec7b-b9b4-4633-9012-fc5a6303aba7', # CentOS 6.6 (owncloud 8) (default)
+      'arch'     => 'fe22a9e4-8ba1-4ea3-90ce-d59d5e5b35b9', # Arch
     }
     if dictionary.keys.include? os
       dictionary[os]
