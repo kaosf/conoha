@@ -1,3 +1,22 @@
+require 'net/https'
+require 'uri'
+
+def https_get
+end
+
+# @return [Net::HTTPResponse]
+# @params [String] uri_string URI string
+# @params [Hash] payload HTTP request body
+def https_post(uri_string, payload)
+  uri = URI.parse uri_string
+  https = Net::HTTP.new(uri.host, uri.port)
+  https.use_ssl = true
+  req = Net::HTTP::Post.new(uri.request_uri)
+  req['Content-Type'] = 'application/json'
+  req.body = payload.to_json
+  https.request(req)
+end
+
 # @params [Array<String>]
 #   The return value of `ip_address_of` method. It is either
 #

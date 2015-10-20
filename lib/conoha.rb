@@ -1,4 +1,5 @@
 require "conoha/version"
+require "conoha/util"
 
 require 'net/https'
 require 'uri'
@@ -10,22 +11,15 @@ class Conoha
   end
 
   def self.authenticate!
-    uri = URI.parse 'https://identity.tyo1.conoha.io/v2.0/tokens'
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Post.new(uri.request_uri)
-    req['Content-Type'] = 'application/json'
-    payload = {
-      auth: {
-        passwordCredentials: {
-          username: @@username,
-          password: @@password
-        },
-        tenantId: @@tenant_id
-      }
-    }.to_json
-    req.body = payload
-    res = https.request(req)
+    res = https_post('https://identity.tyo1.conoha.io/v2.0/tokens', {
+        auth: {
+          passwordCredentials: {
+            username: @@username,
+            password: @@password
+          },
+          tenantId: @@tenant_id
+        }
+      })
     @@authtoken = JSON.parse(res.body)["access"]["token"]["id"]
     save_config!
   end
