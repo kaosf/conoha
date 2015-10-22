@@ -13,6 +13,7 @@ def https_post(uri_string, payload)
   https.use_ssl = true
   req = Net::HTTP::Post.new(uri.request_uri)
   req['Content-Type'] = 'application/json'
+  req['Accept'] = 'application/json'
   req.body = payload.to_json
   https.request(req)
 end
