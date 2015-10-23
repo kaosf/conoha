@@ -1,7 +1,18 @@
 require 'net/https'
 require 'uri'
 
-def https_get
+# @return [Net::HTTPResponse]
+# @params [String] uri_string URI string
+# @params [String] authtoken
+def https_get(uri_string, authtoken)
+  uri = URI.parse uri_string
+  https = Net::HTTP.new(uri.host, uri.port)
+  https.use_ssl = true
+  req = Net::HTTP::Get.new(uri.path)
+  req['Content-Type'] = 'application/json'
+  req['Accept'] = 'application/json'
+  req['X-Auth-Token'] = authtoken
+  https.request(req)
 end
 
 # @return [Net::HTTPResponse]

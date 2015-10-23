@@ -25,14 +25,8 @@ class Conoha
   end
 
   def self.servers
-    uri = URI.parse "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Get.new(uri.path)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
-    res = https.request(req)
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
+    res = https_get uri, authtoken
     JSON.parse(res.body)["servers"]
   end
 
