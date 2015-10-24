@@ -60,14 +60,8 @@ class Conoha
   end
 
   def self.delete(server_id)
-    uri = URI.parse "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Delete.new(uri.request_uri)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
-    res = https.request(req)
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
+    res = https_delete uri, authtoken
     res.code == '204' ? 'OK' : 'Error'
   end
 
@@ -135,14 +129,8 @@ class Conoha
   end
 
   def self.delete_image(image_ref)
-    uri = URI.parse "https://image-service.tyo1.conoha.io/v2/images/#{image_ref}"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Delete.new(uri.request_uri)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
-    res = https.request(req)
+    uri = "https://image-service.tyo1.conoha.io/v2/images/#{image_ref}"
+    res = https_delete uri, authtoken
     res.code == '204' ? 'OK' : 'Error'
   end
 
