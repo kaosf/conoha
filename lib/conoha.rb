@@ -1,8 +1,5 @@
-require "conoha/version"
-require "conoha/util"
-
-require 'net/https'
-require 'uri'
+require 'conoha/version'
+require 'conoha/util'
 require 'json'
 
 class Conoha
@@ -37,13 +34,7 @@ class Conoha
   end
 
   def self.create(os, ram)
-    uri = URI.parse "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Post.new(uri.request_uri)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
     payload = {
       server: {
         adminPass: randstr,
@@ -55,9 +46,8 @@ class Conoha
           {name: 'gncs-ipv4-all'}
         ]
       }
-    }.to_json
-    req.body = payload
-    res = https.request(req)
+    }
+    res = https_post uri, payload, authtoken
     JSON.parse(res.body)["server"]["id"]
   end
 
@@ -68,65 +58,32 @@ class Conoha
   end
 
   def self.ip_address_of(server_id)
-    uri = URI.parse "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Get.new(uri.path)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
-    res = https.request(req)
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
+    res = https_get uri, authtoken
     JSON.parse(res.body)["server"]["addresses"].values[0].map{ |e| e["addr"] }
   end
 
   def self.boot(server_id)
-    uri = URI.parse "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Post.new(uri.request_uri)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
-    req.body = {"os-start": nil}.to_json
-    res = https.request(req)
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
+    res = https_post uri, {"os-start": nil}, authtoken
     res.code == '202' ? 'OK' : 'Error'
   end
 
   def self.shutdown(server_id)
-    uri = URI.parse "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Post.new(uri.request_uri)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
-    req.body = {"os-stop": nil}.to_json
-    res = https.request(req)
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
+    res = https_post uri, {"os-stop": nil}, authtoken
     res.code == '202' ? 'OK' : 'Error'
   end
 
   def self.images
-    uri = URI.parse "https://compute.tyo1.conoha.io/v2/#{tenant_id}/images"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Get.new(uri.path)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
-    res = https.request(req)
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/images"
+    res = https_get uri, authtoken
     JSON.parse(res.body)["images"].map { |e| [e["name"], e["id"]] }
   end
 
   def self.create_image(server_id, name)
-    uri = URI.parse "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Post.new(uri.request_uri)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
-    req.body = {"createImage": {"name": name}}.to_json
-    res = https.request(req)
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
+    res = https_post uri, {"createImage": {"name": name}}, authtoken
     res.code == '202' ? 'OK' : 'Error'
   end
 
@@ -137,13 +94,7 @@ class Conoha
   end
 
   def self.create_from_image(image_ref, ram)
-    uri = URI.parse "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
-    req = Net::HTTP::Post.new(uri.request_uri)
-    req['Content-Type'] = 'application/json'
-    req['Accept'] = 'application/json'
-    req['X-Auth-Token'] = authtoken
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
     payload = {
       server: {
         adminPass: randstr,
@@ -155,9 +106,8 @@ class Conoha
           {name: 'gncs-ipv4-all'}
         ]
       }
-    }.to_json
-    req.body = payload
-    res = https.request(req)
+    }
+    res = https_post uri, payload, authtoken
     JSON.parse(res.body)["server"]["id"]
   end
 
