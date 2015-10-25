@@ -18,13 +18,15 @@ end
 # @return [Net::HTTPResponse]
 # @params [String] uri_string URI string
 # @params [Hash] payload HTTP request body
-def https_post(uri_string, payload)
+# @params [String] authtoken
+def https_post(uri_string, payload, authtoken)
   uri = URI.parse uri_string
   https = Net::HTTP.new(uri.host, uri.port)
   https.use_ssl = true
   req = Net::HTTP::Post.new(uri.request_uri)
   req['Content-Type'] = 'application/json'
   req['Accept'] = 'application/json'
+  req['X-Auth-Token'] = authtoken
   req.body = payload.to_json
   https.request(req)
 end

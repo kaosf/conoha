@@ -11,7 +11,8 @@ class Conoha
   end
 
   def self.authenticate!
-    res = https_post('https://identity.tyo1.conoha.io/v2.0/tokens', {
+    uri = 'https://identity.tyo1.conoha.io/v2.0/tokens'
+    payload = {
         auth: {
           passwordCredentials: {
             username: @@username,
@@ -19,7 +20,8 @@ class Conoha
           },
           tenantId: @@tenant_id
         }
-      })
+      }
+    res = https_post uri, payload, nil
     @@authtoken = JSON.parse(res.body)["access"]["token"]["id"]
     save_config!
   end
