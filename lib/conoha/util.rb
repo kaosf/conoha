@@ -18,7 +18,9 @@ end
 # @return [Net::HTTPResponse]
 # @params [String] uri_string URI string
 # @params [Hash] payload HTTP request body
-# @params [String] authtoken
+# @params [String|nil] authtoken
+#   Authtoken string or `nil`.
+#   Can pass `nil` only on authenticating with username and password.
 def https_post(uri_string, payload, authtoken)
   uri = URI.parse uri_string
   https = Net::HTTP.new(uri.host, uri.port)
