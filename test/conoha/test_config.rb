@@ -17,7 +17,7 @@ class TestConohaConfig < Test::Unit::TestCase
       end
 
       test '[]' do
-        assert_raise(Exception) { @config.load_from_json! '[]' }
+        assert_raise(Conoha::Config::Error) { @config.load_from_json! '[]' }
       end
     end
 
