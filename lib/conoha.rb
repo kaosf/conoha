@@ -219,6 +219,6 @@ EOS
   end
 
   def self.randstr
-    ['0'..'9', 'a'..'z', 'A'..'Z'].map(&:to_a).flatten.sample(60).join
+    (1..60).map{['0'..'9','a'..'z','A'..'Z'].map(&:to_a).flatten.sample}.join
   end
 end
