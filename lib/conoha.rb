@@ -168,7 +168,6 @@ EOS
   end
 
   def self.authtoken
-    # @@authtoken || (authenticate!; @@authtoken)
     @@authtoken
   end
 
