@@ -85,6 +85,28 @@ when 'browse'
   command = "xdg-open http://#{ipaddress}#{port}"
   puts command
   system command
+when 'dump'
+  exit 1 if ARGV.size != 2
+  server_id_cache = server_id(ARGV[0])
+  puts "conoha shutdown #{server_id_cache}"
+  Conoha.shutdown server_id_cache
+  name = ARGV[1]
+  loop do
+    sleep 60
+    puts "conoha imagecreate #{server_id_cache} #{name}"
+    result = Conoha.create_image server_id_cache, name
+    break if result == 'OK'
+    puts '# Error! Retry after 60 seconds...'
+  end
+  puts '# OK!'
+  loop do
+    sleep 60
+    puts "conoha delete #{server_id_cache}"
+    result = Conoha.delete server_id_cache
+    break if result == 'OK'
+    puts '# Error! Retry after 60 seconds...'
+  end
+  puts '# OK!'
 else
   STDERR.puts 'Error'
 end
