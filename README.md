@@ -130,11 +130,13 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/kaosf/
 - [x] remove `curl` command from authenticate
 - [ ] help message
 - [ ] subcommand help messages
+- [x] dump
+- [ ] restore
 
 ### Code
 
-- [ ] DRY HTTP codes
-- [ ] test (but, how and what should I write?)
+- [x] DRY HTTP codes
+- [x] test
 
 ## License
 
