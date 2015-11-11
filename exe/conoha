@@ -31,6 +31,8 @@ def image_ref_or_name(str)
 end
 
 case subcommand
+when 'version', '--version', '-v'
+  puts ConohaVersion::ITSELF
 when 'authenticate'
   Conoha.authenticate!
   puts 'Succeeded!'
