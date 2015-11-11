@@ -61,9 +61,9 @@ when 'imagedelete'
   image_ref = image_ref_or_name ARGV.first
   puts Conoha.delete_image image_ref
 when 'createfromimage', 'restore'
-  exit 1 if ARGV.size != 2
+  exit 1 if ARGV.size < 1
   image_ref = image_ref_or_name ARGV[0]
-  ram = ARGV[1]
+  ram = ARGV[1] || 'g-1gb'
   puts Conoha.create_from_image image_ref, ram
 when 'ssh'
   exit 1 if ARGV.size < 1 || 2 < ARGV.size
