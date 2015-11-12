@@ -131,7 +131,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/kaosf/
 - [ ] help message
 - [ ] subcommand help messages
 - [x] dump
-- [ ] restore
+- [x] restore
 
 ### Code
 
