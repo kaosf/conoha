@@ -112,31 +112,8 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/kaosf/
 
 ## TODO
 
-### Features
-
-- [x] authenticate
-- [x] create vps
-- [x] show vps list
-- [x] check ip address
-- [x] delete vps
-- [x] boot vps
-- [x] shutdown vps
-- [x] create image
-- [x] create vps from image
-- [x] show image list
-- [x] delete image
-- [ ] public keys
-- [x] make as a gem
-- [x] remove `curl` command from authenticate
 - [ ] help message
 - [ ] subcommand help messages
-- [x] dump
-- [x] restore
-
-### Code
-
-- [x] DRY HTTP codes
-- [x] test
 - [ ] CLI support library (e.g. thor)
 
 ## License
