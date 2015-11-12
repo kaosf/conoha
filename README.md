@@ -84,6 +84,9 @@ conoha imagedelete fedcba98-7654-3210-fedc-ba9876543210
 
 # Create a VPS from a saved image
 conoha createfromimage fedcba98-7654-3210-fedc-ba9876543210 g-1gb
+conoha createfromimage ubuntu-backup g-1gb
+# You can remove the last argument (default value is "g-1gb")
+conoha createfromimage fedcba98-7654-3210-fedc-ba9876543210
 
 # SSH
 conoha ssh 01234567-89ab-cdef-0123-456789abcdef root     # ssh root@ipaddress
@@ -96,6 +99,13 @@ conoha mosh 01234567-89ab-cdef-0123-456789abcdef root # mosh root@ipaddress
 # Launch Web browser
 conoha browse 01234567-89ab-cdef-0123-456789abcdef      # xdg-open http://ipaddress
 conoha browse 01234567-89ab-cdef-0123-456789abcdef 3000 # xdg-open http://ipaddress:3000
+
+# Dump VPS (shutdown, imagecreate and delete)
+conoha dump 01234567-89ab-cdef-0123-456789abcdef something-backup
+# "something-backup" is the name for "imagecreate"
+
+# Restore VPS (just a synonym of "createfromimage")
+conoha restore something-backup
 ```
 
 ## Development
