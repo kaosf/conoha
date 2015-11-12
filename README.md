@@ -137,6 +137,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/kaosf/
 
 - [x] DRY HTTP codes
 - [x] test
+- [ ] CLI support library (e.g. thor)
 
 ## License
 
