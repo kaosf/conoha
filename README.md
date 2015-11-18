@@ -126,6 +126,28 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/kaosf/
 - [ ] subcommand help messages
 - [ ] CLI support library (e.g. thor)
 
+## WIP feature
+
+`Conoharantfile`
+
+```yml
+# vim: ft=yaml
+---
+os: centos67
+ram: g-1gb
+tagprefix: tagnameprefixasyoulike
+```
+
+```sh
+# conoharant up
+conoharant ssh
+conoharant ssh root
+conoharant mosh
+conoharant dump
+conoharant restore
+conoharant clean
+```
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
