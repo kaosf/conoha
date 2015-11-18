@@ -1,0 +1,130 @@
+#!/usr/bin/env ruby
+
+unless File.exist? 'Conoharantfile'
+  STDERR.puts "\"Conoharantfile\" doesn't exist."
+  exit 1
+end
+unless Dir.exist? '.conoharant'
+  Dir.mkdir '.conoharant'
+end
+
+require 'yaml'
+config = YAML.load(File.open('Conoharantfile').read)
+if File.exist? '.conoharant/status.yml'
+  status = YAML.load(File.open('.conoharant/status.yml').read)
+else
+  status = {
+    'status' => 'no',
+    'id' => nil,
+    'images' => [],
+    'latestnumber' => 0,
+    'image-tags' => [],
+  }
+end
+
+require 'conoha/util'
+# Dump current status to ".conoharant/status.yml"
+# @params [Hash] status
+def dump_conoharant_status(status)
+  File.open('.conoharant/status.yml', 'w').print(YAML.dump(status))
+end
+
+require 'conoha'
+Conoha.init!
+begin
+  Conoha.vps_list
+rescue => e
+  puts "Auth token is invalid."
+  puts "Reauthenticating..."
+  begin
+    Conoha.authenticate!
+  rescue => e
+    STDERR.puts "Failed to authenticate again."
+    STDERR.puts "Retry after modifying \"~/.conoha-config.json\"."
+    exit 1
+  end
+end
+puts "Authentication OK."
+
+arg = ARGV.first
+case arg
+when 'ssh', 'mosh'
+  connection = arg # 'ssh' or 'mosh'
+  if status['status'] != 'running'
+    STDERR.puts "VPS is not running."
+    exit 1
+  end
+  server_id = status['id']
+  ipaddress = ipv4(Conoha.ip_address_of(server_id))
+  user = ARGV[1].nil? ? '' : "#{ARGV[1]}@"
+  case connection
+  when 'ssh'
+    command = "ssh -oStrictHostKeyChecking=no #{user}#{ipaddress}"
+  when 'mosh'
+    command = "mosh #{ipaddress}"
+  end
+  puts command
+  system command
+when 'dump'
+  if status['status'] != 'running'
+    STDERR.puts "A running VPS doesn't exist."
+    exit 1
+  end
+  latest_number = status['latestnumber']
+  server_id = status['id']
+  name = "#{config['tagprefix']}#{latest_number + 1}"
+  latest_number += 1
+  puts "conoha shutdown #{server_id}"
+  Conoha.shutdown server_id
+  loop do
+    sleep 60
+    puts "conoha imagecreate #{server_id} #{name}"
+    result = Conoha.create_image server_id, name
+    break if result == 'OK'
+    puts '# Error! Retry after 60 seconds...'
+  end
+  puts '# OK!'
+  image_id = Conoha.images.find { |e| e[0] == name }[1]
+  loop do
+    sleep 60
+    puts "conoha delete #{server_id}"
+    result = Conoha.delete server_id
+    break if result == 'OK'
+    puts '# Error! Retry after 60 seconds...'
+  end
+  puts '# OK!'
+  status['status'] = 'no'
+  status['id'] = nil
+  status['images'] << image_id
+  status['latestnumber'] = latest_number
+  status['image-tags'] << name
+  dump_conoharant_status status
+when 'restore'
+  if status['status'] != 'no'
+    STDERR.puts "A VPS already exists."
+    exit 1
+  end
+  image_id = status['images'][-1]
+  ram = config['ram']
+  puts "conoha restore #{image_id} #{ram}"
+  server_id = Conoha.create_from_image image_id, ram
+  status['status'] = 'running'
+  status['id'] = server_id
+  dump_conoharant_status status
+when 'clean'
+  images = status['images']
+  if images.length > 2
+    images[0...-2].each do |e|
+      puts "conoha delete #{e}"
+      Conoha.delete_image e
+    end
+    status['images'] = status['images'][-2..-1]
+    status['image-tags'] = status['image-tags'][-2..-1]
+    dump_conoharant_status status
+  else
+    puts "Nothing to do."
+  end
+else
+  STDERR.puts 'Invalid argument.'
+  exit 1
+end
