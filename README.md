@@ -146,6 +146,8 @@ conoharant mosh
 conoharant dump
 conoharant restore
 conoharant clean
+conoharant browse
+conoharant browse 3000
 ```
 
 ## License
