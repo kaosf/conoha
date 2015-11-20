@@ -108,6 +108,14 @@ when 'restore'
   ram = config['ram']
   puts "conoha restore #{image_id} #{ram}"
   server_id = Conoha.create_from_image image_id, ram
+  loop do
+    sleep 10
+    result = Conoha.status_of server_id
+    break if result == "ACTIVE"
+    puts "# Current status is \"#{result}\", not \"ACTIVE\"."
+    puts "# Re-check after 10 seconds..."
+  end
+  puts "# OK!"
   status['status'] = 'running'
   status['id'] = server_id
   dump_conoharant_status status
