@@ -143,6 +143,7 @@ tagprefix: tagnameprefixasyoulike
 conoharant ssh
 conoharant ssh root
 conoharant mosh
+conoharant sftp
 conoharant dump
 conoharant restore
 conoharant clean

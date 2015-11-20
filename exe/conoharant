@@ -139,6 +139,12 @@ when 'browse'
   command = "xdg-open http://#{ipaddress}#{port}"
   puts command
   system command
+when 'sftp'
+  server_id = status['id']
+  ipaddress = ipv4(Conoha.ip_address_of(server_id))
+  command = "sftp #{ipaddress}"
+  puts command
+  system command
 else
   STDERR.puts 'Invalid argument.'
   exit 1
