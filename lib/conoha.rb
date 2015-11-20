@@ -63,6 +63,12 @@ class Conoha
     JSON.parse(res.body)["server"]["addresses"].values[0].map{ |e| e["addr"] }
   end
 
+  def self.status_of(server_id)
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
+    res = https_get uri, authtoken
+    JSON.parse(res.body)["server"]["status"]
+  end
+
   def self.boot(server_id)
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
     res = https_post uri, {"os-start": nil}, authtoken
