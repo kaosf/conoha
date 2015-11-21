@@ -48,6 +48,25 @@ puts "Authentication OK."
 
 arg = ARGV.first
 case arg
+when 'up'
+  begin
+    server_id = Conoha.create config['os'], config['ram']
+  rescue => e
+    STDERR.puts e.to_s
+    exit 1
+  end
+  puts server_id
+  loop do
+    sleep 10
+    result = Conoha.status_of server_id
+    break if result == "ACTIVE"
+    puts "# Current status is \"#{result}\", not \"ACTIVE\"."
+    puts "# Re-check after 10 seconds..."
+  end
+  puts "# OK!"
+  status['status'] = 'running'
+  status['id'] = server_id
+  dump_conoharant_status status
 when 'ssh', 'mosh'
   connection = arg # 'ssh' or 'mosh'
   if status['status'] != 'running'
