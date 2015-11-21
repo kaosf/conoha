@@ -42,7 +42,12 @@ when 'ipaddress'
   exit 1 if ARGV.size != 1
   pp Conoha.ip_address_of server_id(ARGV.first)
 when 'create'
-  pp Conoha.create *ARGV
+  begin
+    pp Conoha.create *ARGV
+  rescue => e
+    STDERR.puts e.to_s
+    exit 1
+  end
 when 'delete'
   exit 1 if ARGV.size != 1
   puts Conoha.delete server_id(ARGV.first)
