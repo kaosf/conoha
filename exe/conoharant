@@ -30,6 +30,7 @@ def dump_conoharant_status(status)
 end
 
 require 'conoha'
+require 'conoha/version'
 Conoha.init!
 begin
   Conoha.vps_list
@@ -48,6 +49,8 @@ puts "Authentication OK."
 
 arg = ARGV.first
 case arg
+when 'version', '--version', '-v'
+  puts ConohaVersion::ITSELF
 when 'up'
   begin
     server_id = Conoha.create config['os'], config['ram']
