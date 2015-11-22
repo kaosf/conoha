@@ -138,8 +138,13 @@ ram: g-1gb
 tagprefix: tagnameprefixasyoulike
 ```
 
+You should ignore `.conoharant` directory if you manage `Conoharantfile` with VCS.
+
+### Simple usage
+
 ```sh
-# conoharant up
+conoharant up
+conoharant status
 conoharant ssh
 conoharant ssh root
 conoharant mosh
