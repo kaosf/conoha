@@ -29,8 +29,15 @@ def dump_conoharant_status(status)
   File.open('.conoharant/status.yml', 'w').print(YAML.dump(status))
 end
 
-require 'conoha'
 require 'conoha/version'
+arg = ARGV.first
+case arg
+when 'version', '--version', '-v'
+  puts ConohaVersion::ITSELF
+  exit 0
+end
+
+require 'conoha'
 Conoha.init!
 begin
   Conoha.vps_list
@@ -47,10 +54,7 @@ rescue => e
 end
 puts "Authentication OK."
 
-arg = ARGV.first
 case arg
-when 'version', '--version', '-v'
-  puts ConohaVersion::ITSELF
 when 'status'
   puts status['status']
 when 'up'
