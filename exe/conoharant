@@ -42,8 +42,8 @@ Conoha.init!
 begin
   Conoha.vps_list
 rescue => e
-  puts "Auth token is invalid."
-  puts "Reauthenticating..."
+  puts "# Auth token is invalid."
+  puts "# Reauthenticating..."
   begin
     Conoha.authenticate!
   rescue => e
@@ -52,7 +52,7 @@ rescue => e
     exit 1
   end
 end
-puts "Authentication OK."
+puts "# Authentication OK."
 
 case arg
 when 'status'
@@ -158,7 +158,7 @@ when 'clean'
     status['image-tags'] = status['image-tags'][-2..-1]
     dump_conoharant_status status
   else
-    puts "Nothing to do."
+    puts "# Nothing to do."
   end
 when 'browse'
   server_id = status['id']
