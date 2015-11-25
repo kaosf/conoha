@@ -71,13 +71,13 @@ class Conoha
 
   def self.boot(server_id)
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
-    res = https_post uri, {"os-start": nil}, authtoken
+    res = https_post uri, {"os-start" => nil}, authtoken
     res.code == '202' ? 'OK' : 'Error'
   end
 
   def self.shutdown(server_id)
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
-    res = https_post uri, {"os-stop": nil}, authtoken
+    res = https_post uri, {"os-stop" => nil}, authtoken
     res.code == '202' ? 'OK' : 'Error'
   end
 
@@ -89,7 +89,7 @@ class Conoha
 
   def self.create_image(server_id, name)
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
-    res = https_post uri, {"createImage": {"name": name}}, authtoken
+    res = https_post uri, {"createImage" => {"name" => name}}, authtoken
     res.code == '202' ? 'OK' : 'Error'
   end
 
