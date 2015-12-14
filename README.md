@@ -64,6 +64,9 @@ conoha vpslist
 # Check VPS IPv4 address
 conoha ipaddress 01234567-89ab-cdef-0123-456789abcdef
 
+# Check VPS status
+conoha status 01234567-89ab-cdef-0123-456789abcdef
+
 # Shutdown VPS
 conoha shutdown 01234567-89ab-cdef-0123-456789abcdef
 

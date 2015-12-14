@@ -38,6 +38,9 @@ when 'authenticate'
   puts 'Succeeded!'
 when 'vpslist'
   pp Conoha.vps_list
+when 'status'
+  exit 1 if ARGV.size != 1
+  pp Conoha.status_of server_id(ARGV.first)
 when 'ipaddress'
   exit 1 if ARGV.size != 1
   pp Conoha.ip_address_of server_id(ARGV.first)
