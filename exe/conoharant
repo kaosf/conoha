@@ -14,7 +14,7 @@ if File.exist? '.conoharant/status.yml'
   status = YAML.load(File.open('.conoharant/status.yml').read)
 else
   status = {
-    'status' => 'no',
+    'status' => 'nothing',
     'id' => nil,
     'images' => [],
     'latestnumber' => 0,
@@ -121,14 +121,15 @@ when 'dump'
     puts '# Error! Retry after 60 seconds...'
   end
   puts '# OK!'
-  status['status'] = 'no'
+  status['status'] = 'nothing'
   status['id'] = nil
   status['images'] << image_id
   status['latestnumber'] = latest_number
   status['image-tags'] << name
   dump_conoharant_status status
 when 'restore'
-  if status['status'] != 'no'
+  # TODO: Remove comparing to 'no'.
+  if status['status'] != 'no' && status['status'] != 'nothing'
     STDERR.puts "A VPS already exists."
     exit 1
   end
