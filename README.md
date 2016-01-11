@@ -163,4 +163,4 @@ conoharant browse 3000
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (C) 2015 ka
+Copyright (C) 2015-2016 ka
