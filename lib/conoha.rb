@@ -169,7 +169,9 @@ EOS
       public_key: @@public_key,
       authtoken: @@authtoken,
     })
-    File.open(config_file_path, 'w').write s
+    File.open(config_file_path, 'w') do |f|
+      f.write s
+    end
   end
 
   def self.tenant_id

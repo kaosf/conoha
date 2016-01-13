@@ -26,7 +26,9 @@ require 'conoha/util'
 # Dump current status to ".conoharant/status.yml"
 # @params [Hash] status
 def dump_conoharant_status(status)
-  File.open('.conoharant/status.yml', 'w').print(YAML.dump(status))
+  File.open('.conoharant/status.yml', 'w') do |f|
+    f.print(YAML.dump(status))
+  end
 end
 
 require 'conoha/version'
