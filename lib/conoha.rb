@@ -19,6 +19,9 @@ class Conoha
         }
       }
     res = https_post uri, payload, nil
+    if res.code == '401'
+      raise StandardError.new 'Authentication failure'
+    end
     @@authtoken = JSON.parse(res.body)["access"]["token"]["id"]
     save_config!
   end

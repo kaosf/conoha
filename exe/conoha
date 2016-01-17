@@ -34,7 +34,13 @@ case subcommand
 when 'version', '--version', '-v'
   puts ConohaVersion::ITSELF
 when 'authenticate'
-  Conoha.authenticate!
+  begin
+    Conoha.authenticate!
+  rescue => e
+    STDERR.puts "Failed to authenticate."
+    STDERR.puts "Retry after modifying \"~/.conoha-config.json\"."
+    exit 1
+  end
   puts 'Succeeded!'
 when 'vpslist'
   pp Conoha.vps_list
