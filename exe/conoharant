@@ -78,6 +78,16 @@ when 'up'
   status['status'] = 'running'
   status['id'] = server_id
   dump_conoharant_status status
+when 'halt', 'shutdown'
+  if status['status'] != 'running'
+    STDERR.puts "A running VPS doesn't exist."
+    exit 1
+  end
+  server_id = status['id']
+  puts "conoha shutdown #{server_id}"
+  Conoha.shutdown server_id
+  status['status'] = 'shutdown'
+  dump_conoharant_status status
 when 'ssh', 'mosh'
   connection = arg # 'ssh' or 'mosh'
   if status['status'] != 'running'
