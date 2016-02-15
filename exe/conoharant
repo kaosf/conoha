@@ -88,6 +88,29 @@ when 'halt', 'shutdown'
   Conoha.shutdown server_id
   status['status'] = 'shutdown'
   dump_conoharant_status status
+when 'destroy'
+  if status['status'] == 'nothing'
+    puts "# Nothing to do."
+    exit 0
+  end
+  server_id = status['id']
+  if status['status'] == 'running'
+    puts "conoha shutdown #{server_id}"
+    Conoha.shutdown server_id
+  end
+  loop do
+    sleep 10
+    result = Conoha.status_of server_id
+    break if result != "ACTIVE"
+    puts "# Current status is still \"#{result}\"."
+    puts "# Re-check after 10 seconds..."
+  end
+  puts "conoha delete #{server_id}"
+  Conoha.delete server_id
+  status['status'] = 'nothing'
+  status['id'] = nil
+  dump_conoharant_status status
+  puts "# OK!"
 when 'ssh', 'mosh'
   connection = arg # 'ssh' or 'mosh'
   if status['status'] != 'running'
