@@ -70,6 +70,7 @@ def image_ref_from_os(os)
     'centos66' => '14961158-a69c-4af1-b375-b9a72982837d', # CentOS 6.6
     'centos67' => '91944101-df61-4c41-b7c5-76cebfc48318', # CentOS 6.7
     'centos71' => 'edc9457e-e4a8-4974-8217-c254d215b460', # CentOS 7.1
+    'centos72' => '78c0d074-fe07-4408-9582-b5525534e975', # CentOS 7.2
     'arch'     => 'fe22a9e4-8ba1-4ea3-90ce-d59d5e5b35b9', # Arch
   }
   if dictionary.keys.include? os
