@@ -107,13 +107,14 @@ when 'destroy'
   if status['status'] == 'running'
     puts "conoha shutdown #{server_id}"
     Conoha.shutdown server_id
+    sleep 10
   end
   loop do
-    sleep 10
     result = Conoha.status_of server_id
-    break if result != "ACTIVE"
-    puts "# Current status is still \"#{result}\"."
+    break if result == "SHUTOFF"
+    puts "# Current status is \"#{result}\", not \"SHUTOFF\"."
     puts "# Re-check after 10 seconds..."
+    sleep 10
   end
   puts "conoha delete #{server_id}"
   Conoha.delete server_id
