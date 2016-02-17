@@ -60,23 +60,33 @@ case arg
 when 'status'
   puts status['status']
 when 'up'
-  begin
-    server_id = Conoha.create config['os'], config['ram']
-  rescue => e
-    STDERR.puts e.to_s
-    exit 1
+  if status['status'] == 'running'
+    puts "# Nothing to do."
+    exit 0
   end
-  puts server_id
-  loop do
-    sleep 10
-    result = Conoha.status_of server_id
-    break if result == "ACTIVE"
-    puts "# Current status is \"#{result}\", not \"ACTIVE\"."
-    puts "# Re-check after 10 seconds..."
+  if status['id'].nil?
+    begin
+      server_id = Conoha.create config['os'], config['ram']
+    rescue => e
+      STDERR.puts e.to_s
+      exit 1
+    end
+    puts server_id
+    loop do
+      sleep 10
+      result = Conoha.status_of server_id
+      break if result == "ACTIVE"
+      puts "# Current status is \"#{result}\", not \"ACTIVE\"."
+      puts "# Re-check after 10 seconds..."
+    end
+    puts "# OK!"
+    status['id'] = server_id
+  else
+    server_id = status['id']
+    puts "conoha boot #{server_id}"
+    Conoha.boot server_id
   end
-  puts "# OK!"
   status['status'] = 'running'
-  status['id'] = server_id
   dump_conoharant_status status
 when 'halt', 'shutdown'
   if status['status'] != 'running'
