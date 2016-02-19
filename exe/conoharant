@@ -135,7 +135,7 @@ when 'ssh', 'mosh'
   when 'ssh'
     command = "ssh -oStrictHostKeyChecking=no #{user}#{ipaddress}"
   when 'mosh'
-    command = "mosh #{ipaddress}"
+    command = "mosh #{user}#{ipaddress}"
   end
   puts command
   system command
