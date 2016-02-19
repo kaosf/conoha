@@ -149,8 +149,9 @@ You should ignore `.conoharant` directory if you manage `Conoharantfile` with VC
 conoharant up
 conoharant status
 conoharant ssh
-conoharant ssh root
+conoharant ssh username
 conoharant mosh
+conoharant mosh username
 conoharant sftp
 conoharant dump
 conoharant restore
