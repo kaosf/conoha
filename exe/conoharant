@@ -1,8 +1,27 @@
 #!/usr/bin/env ruby
 
 unless File.exist? 'Conoharantfile'
-  STDERR.puts "\"Conoharantfile\" doesn't exist."
-  exit 1
+  if ARGV[0] == 'init'
+    require 'securerandom'
+    File.open('Conoharantfile', 'w') do |f|
+      f.write(<<EOF
+os: centos72
+# os: centos67
+# os: ubuntu
+# os: arch
+ram: g-1gb
+# ram: g-2gb
+# ram: g-4gb
+# ram: g-8gb
+tagprefix: randomname#{SecureRandom.uuid[0, 8]}
+EOF
+      )
+    end
+    exit 0
+  else
+    STDERR.puts "\"Conoharantfile\" doesn't exist."
+    exit 1
+  end
 end
 unless Dir.exist? '.conoharant'
   Dir.mkdir '.conoharant'
