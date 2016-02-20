@@ -146,6 +146,7 @@ You should ignore `.conoharant` directory if you manage `Conoharantfile` with VC
 ### Simple usage
 
 ```sh
+conoharant init
 conoharant up
 conoharant status
 conoharant ssh
