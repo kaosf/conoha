@@ -1,7 +1,16 @@
 #!/usr/bin/env ruby
 
+arg = ARGV.first
+
+require 'conoha/version'
+case arg
+when 'version', '--version', '-v'
+  puts ConohaVersion::ITSELF
+  exit 0
+end
+
 unless File.exist? 'Conoharantfile'
-  if ARGV[0] == 'init'
+  if arg == 'init'
     require 'securerandom'
     File.open('Conoharantfile', 'w') do |f|
       f.write(<<EOF
@@ -48,14 +57,6 @@ def dump_conoharant_status(status)
   File.open('.conoharant/status.yml', 'w') do |f|
     f.print(YAML.dump(status))
   end
-end
-
-require 'conoha/version'
-arg = ARGV.first
-case arg
-when 'version', '--version', '-v'
-  puts ConohaVersion::ITSELF
-  exit 0
 end
 
 require 'conoha'
