@@ -67,6 +67,8 @@ end
 def image_ref_from_os(os)
   dictionary = {
     'ubuntu'   => '793be3e1-3c33-4ab3-9779-f4098ea90eb5', # Ubuntu 14.04 amd64
+    'debian'   => 'c14d5dd5-debc-464c-9cc3-ada6e48f5d0c', # Debian 8 amd64
+    'fedora23' => 'c633d75f-6504-4541-80d6-20f2ced0bece', # Fedora 23 amd64
     'centos67' => 'cd13a8b9-6b57-467b-932e-eee5edcd8d6c', # CentOS 6.7
     'centos72' => 'e6f59a37-93d2-47cc-91a2-eb35abdfe45b', # CentOS 7.2
     'arch'     => 'f5e5b475-ebec-4973-99c7-bc8add5d16c4', # Arch
