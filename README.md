@@ -131,15 +131,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/kaosf/
 
 ## WIP feature
 
-`Conoharantfile`
-
-```yml
-# vim: ft=yaml
----
-os: centos67
-ram: g-1gb
-tagprefix: tagnameprefixasyoulike
-```
+Run `conoharant init` to generate `Conoharantfile`.
 
 You should ignore `.conoharant` directory if you manage `Conoharantfile` with VCS.
 
