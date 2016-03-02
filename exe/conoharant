@@ -15,7 +15,9 @@ unless File.exist? 'Conoharantfile'
     File.open('Conoharantfile', 'w') do |f|
       f.write(<<EOF
 os: centos72
+# os: fedora23
 # os: centos67
+# os: debian
 # os: ubuntu
 # os: arch
 ram: g-1gb
