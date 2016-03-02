@@ -66,10 +66,10 @@ end
 # @raise [StandardError] When the OS name isn't be contained.
 def image_ref_from_os(os)
   dictionary = {
-    'ubuntu'   => 'a87dfe9f-a8a4-4634-9a40-dbeba7ee7013', # Ubuntu 14.04 amd64
-    'centos67' => '91944101-df61-4c41-b7c5-76cebfc48318', # CentOS 6.7
-    'centos72' => '78c0d074-fe07-4408-9582-b5525534e975', # CentOS 7.2
-    'arch'     => 'fe22a9e4-8ba1-4ea3-90ce-d59d5e5b35b9', # Arch
+    'ubuntu'   => '793be3e1-3c33-4ab3-9779-f4098ea90eb5', # Ubuntu 14.04 amd64
+    'centos67' => 'cd13a8b9-6b57-467b-932e-eee5edcd8d6c', # CentOS 6.7
+    'centos72' => 'e6f59a37-93d2-47cc-91a2-eb35abdfe45b', # CentOS 7.2
+    'arch'     => 'f5e5b475-ebec-4973-99c7-bc8add5d16c4', # Arch
   }
   if dictionary.keys.include? os
     dictionary[os]
