@@ -24,5 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "test-unit", "~> 3.1.3"
   spec.add_development_dependency "test-unit-notify", "~> 1.0.4"
   spec.add_development_dependency "guard", "~> 2.13"
-  spec.add_development_dependency "guard-test", "~> 2.0"
+  spec.add_development_dependency "guard-minitest"
 end
