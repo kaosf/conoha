@@ -6,7 +6,7 @@ def lib2test(m1)
   "test/#{File.dirname m1}/test_#{File.basename m1}.rb"
 end
 
-guard :test, cli: '-Itest --notify' do
+guard :minitest, cli: '-Itest --notify' do
   watch('test/test_helper.rb') { 'test' }
   watch('test/test_conoha.rb')
   watch('lib/conoha.rb') { 'test/test_conoha.rb' }
