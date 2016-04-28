@@ -1,3 +1,3 @@
 module ConohaVersion
-  ITSELF = "0.7.0"
+  ITSELF = "0.7.1"
 end
