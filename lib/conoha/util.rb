@@ -83,3 +83,32 @@ Select os name from the following list:
 EOS
   end
 end
+
+# @return [String] Image name tag
+# @params [String] os OS name
+# @raise [StandardError] When the OS name isn't included in the dictionary.
+def image_tag_dictionary(os)
+  dictionary = {
+    'ubuntu'   => 'vmi-ubuntu-14.04-amd64', # Ubuntu 14.04 amd64
+    'debian'   => 'vmi-debian-8-amd64', # Debian 8 amd64
+    'fedora23' => 'vmi-fedora-23-amd64', # Fedora 23 amd64
+    'centos67' => 'vmi-centos-6.7-amd64', # CentOS 6.7
+    'centos72' => 'vmi-centos-7.2-amd64', # CentOS 7.2
+    'arch'     => 'vmi-arch-amd64', # Arch
+  }
+
+  # 'opensuse' => 'vmi-opensuse-42.1-amd64' # openSUSE
+  # 'openbsd'  => 'vmi-openbsd-5.8-amd64', # OpenBSD
+  # 'netbsd'   => 'vmi-netbsd-7.0-amd64', # NetBSD
+  # 'freebsd'  => 'vmi-freebsd-10.1-x86_64', # FreeBSD
+
+  if dictionary.keys.include? os
+    dictionary[os]
+  else
+    raise StandardError.new <<EOS
+Select os name from the following list:
+
+#{dictionary.keys.join("\n")}
+EOS
+  end
+end
