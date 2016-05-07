@@ -63,7 +63,7 @@ end
 
 # @return [String] UUID of image
 # @params [String] os OS name
-# @raise [StandardError] When the OS name isn't be contained.
+# @raise [StandardError] When the OS name isn't contained.
 def image_ref_from_os(os)
   dictionary = {
     'ubuntu'   => '793be3e1-3c33-4ab3-9779-f4098ea90eb5', # Ubuntu 14.04 amd64

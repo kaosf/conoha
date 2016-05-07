@@ -44,10 +44,7 @@ class Conoha
         imageRef: image_ref_from_os(os),
         flavorRef: flavor_ref(ram),
         key_name: public_key,
-        security_groups: [
-          {name: 'default'},
-          {name: 'gncs-ipv4-all'}
-        ]
+        security_groups: [{name: 'default'}, {name: 'gncs-ipv4-all'}],
       }
     }
     res = https_post uri, payload, authtoken
@@ -113,10 +110,7 @@ class Conoha
         imageRef: image_ref,
         flavorRef: flavor_ref(ram),
         key_name: public_key,
-        security_groups: [
-          {name: 'default'},
-          {name: 'gncs-ipv4-all'}
-        ]
+        security_groups: [{name: 'default'}, {name: 'gncs-ipv4-all'}],
       }
     }
     res = https_post uri, payload, authtoken
