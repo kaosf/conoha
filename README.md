@@ -170,6 +170,4 @@ conoharant destroy
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
-
-Copyright (C) 2015-2016 ka
+[MIT](LICENSE.txt)
