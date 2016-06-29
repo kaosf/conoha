@@ -87,12 +87,16 @@ class Conoha
     servers.map { |e| e["id"] }
   end
 
+  # @raise [StandardError]
+  #   when "os" doesn't exist in image_tag_dictionary
+  #   when "image_tag" doesn't exist in images
   def self.create(os, ram)
+    image_ref = image_ref_from_image_tag(image_tag_dictionary(os))
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
     payload = {
       server: {
         adminPass: randstr,
-        imageRef: image_ref_from_os(os),
+        imageRef: image_ref,
         flavorRef: flavor_ref(ram),
         key_name: public_key,
         security_groups: [{name: 'default'}, {name: 'gncs-ipv4-all'}],
@@ -103,10 +107,11 @@ class Conoha
   end
 
   def self.rebuild(server_id, os)
+    image_ref_from_image_tag(image_tag_dictionary(os))
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
     payload = {
       rebuild: {
-        imageRef: image_ref_from_os(os),
+        imageRef: image_ref,
         adminPass: randstr,
         key_name: public_key
       }
@@ -247,6 +252,17 @@ EOS
 
   def self.public_key
     @@public_key
+  end
+
+  # @return [String] server ID (UUID)
+  # @param [String] image_tag e.g. "vmi-centos-7-amd64"
+  # @raise [StandardError] when image_tag doesn't exist in images
+  def self.image_ref_from_image_tag(image_tag)
+    if image = images.find { |e| e[0] == image_tag }
+      image[1]
+    else
+      raise StandardError.new "Tag \"#{tag}\" doesn't exist in image list."
+    end
   end
 
   def self.flavor_ref(ram)
