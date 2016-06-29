@@ -107,6 +107,7 @@ def image_tag_dictionary(os)
     dictionary[os]
   else
     raise StandardError.new <<EOS
+"#{os}" doesn't exist.
 Select os name from the following list:
 
 #{dictionary.keys.join("\n")}
