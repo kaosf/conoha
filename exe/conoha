@@ -35,13 +35,32 @@ when 'version', '--version', '-v'
   puts ConohaVersion::ITSELF
 when 'authenticate'
   begin
-    Conoha.authenticate!
+    if ARGV.size == 0
+      Conoha.authenticate!
+    else
+      Conoha.authenticate_user! ARGV.first
+    end
   rescue => e
+    STDERR.puts e
     STDERR.puts "Failed to authenticate."
     STDERR.puts "Retry after modifying \"~/.conoha-config.json\"."
     exit 1
   end
   puts 'Succeeded!'
+when 'whoami'
+  result = Conoha.whoami
+  if result.class == Fixnum
+    case result
+    when 1
+      puts "\"accounts\" doesn't exist in \"~/.conoha-config.json\"."
+    when 2
+      puts "\"accounts\" doesn't have \"#{Conoha.username}\"."
+    else
+      puts "fixnum else"
+    end
+  else
+    puts result
+  end
 when 'vpslist'
   pp Conoha.vps_list
 when 'status'

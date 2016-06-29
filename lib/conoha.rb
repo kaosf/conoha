@@ -26,6 +26,57 @@ class Conoha
     save_config!
   end
 
+  def self.authenticate_user!(user_id)
+    uri = 'https://identity.tyo1.conoha.io/v2.0/tokens'
+
+    credential = @@accounts[user_id]
+    if credential.nil?
+      raise StandardError.new "User \"#{user_id}\" doesn't exist."
+    end
+
+    payload = {
+        auth: {
+          passwordCredentials: {
+            username: credential['username'],
+            password: credential['password']
+          },
+          tenantId: credential['tenant_id']
+        }
+      }
+    res = https_post uri, payload, nil
+    if res.code == '401'
+      raise StandardError.new 'Authentication failure'
+    end
+
+    @@username = credential['username']
+    @@password = credential['password']
+    @@tenant_id = credential['tenant_id']
+    @@public_key = credential['public_key']
+    @@authtoken = JSON.parse(res.body)["access"]["token"]["id"]
+    save_config!
+  end
+
+  def self.username
+    @@username
+  end
+
+  # @return [Fixnum|String]
+  #   Fixnum:
+  #     1: conoha-config.json doesn't have "accounts" key
+  #     2: "accounts" doesn't have deafult "username"
+  #   String: "id" of "accounts".
+  def self.whoami
+    if @@accounts.nil?
+      1
+    else
+      if result = @@accounts.find { |k, v| v['username'] == @@username }
+        result.first
+      else
+        2
+      end
+    end
+  end
+
   def self.servers
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
     res = https_get uri, authtoken
@@ -167,6 +218,7 @@ EOS
       @@tenant_id = config["tenant_id"]
       @@public_key = config["public_key"]
       @@authtoken = config["authtoken"]
+      @@accounts = config["accounts"]
       @@config_loaded = true
     end
   end
@@ -178,6 +230,7 @@ EOS
       tenant_id: @@tenant_id,
       public_key: @@public_key,
       authtoken: @@authtoken,
+      accounts: @@accounts
     })
     File.open(config_file_path, 'w') do |f|
       f.write s
