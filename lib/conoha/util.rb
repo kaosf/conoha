@@ -72,12 +72,11 @@ def image_tag_dictionary(os)
     'centos67' => 'vmi-centos-6.7-amd64', # CentOS 6.7
     'centos72' => 'vmi-centos-7.2-amd64', # CentOS 7.2
     'arch'     => 'vmi-arch-amd64', # Arch
+    'opensuse' => 'vmi-opensuse-42.1-amd64', # openSUSE
+    'openbsd'  => 'vmi-openbsd-5.8-amd64', # OpenBSD
+    'netbsd'   => 'vmi-netbsd-7.0-amd64', # NetBSD
+    'freebsd'  => 'vmi-freebsd-10.1-x86_64', # FreeBSD
   }
-
-  # 'opensuse' => 'vmi-opensuse-42.1-amd64' # openSUSE
-  # 'openbsd'  => 'vmi-openbsd-5.8-amd64', # OpenBSD
-  # 'netbsd'   => 'vmi-netbsd-7.0-amd64', # NetBSD
-  # 'freebsd'  => 'vmi-freebsd-10.1-x86_64', # FreeBSD
 
   if dictionary.keys.include? os
     dictionary[os]
