@@ -51,6 +51,19 @@ class Conoha
     JSON.parse(res.body)["server"]["id"]
   end
 
+  def self.rebuild(server_id, os)
+    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
+    payload = {
+      rebuild: {
+        imageRef: image_ref_from_os(os),
+        adminPass: randstr,
+        key_name: public_key
+      }
+    }
+    res = https_post uri, payload, authtoken
+    res.code == '202' ? 'OK' : 'Error'
+  end
+
   def self.delete(server_id)
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
     res = https_delete uri, authtoken

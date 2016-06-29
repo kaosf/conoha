@@ -73,6 +73,9 @@ conoha shutdown 01234567-89ab-cdef-0123-456789abcdef
 # Boot VPS
 conoha boot 01234567-89ab-cdef-0123-456789abcdef
 
+# Rebuild (Re-install the OS)
+conoha rebuild 01234567-89ab-cdef-0123-456789abcdef ubuntu
+
 # Delte VPS
 conoha delete 01234567-89ab-cdef-0123-456789abcdef
 

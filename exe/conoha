@@ -57,6 +57,9 @@ when 'create'
     STDERR.puts e.to_s
     exit 1
   end
+when 'rebuild'
+  exit 1 if ARGV.size != 2
+  puts Conoha.rebuild *ARGV
 when 'delete'
   exit 1 if ARGV.size != 1
   puts Conoha.delete server_id(ARGV.first)
