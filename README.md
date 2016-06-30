@@ -171,6 +171,51 @@ conoharant shutdown
 conoharant destroy
 ```
 
+## Experimental feature: multiple accounts management
+
+Edit `~/.conoha-config.json` like following:
+
+```sh
+{
+  "username": "gncu123456789",
+  "password": "your-password",
+  "tenant_id": "0123456789abcdef",
+  "public_key": "your-registered-public-key-name",
+  "accounts": {
+    "user1": {
+      "username": "gncu123456789",
+      "password": "your-password",
+      "tenant_id": "0123456789abcdef",
+      "public_key": "your-registered-public-key-name"
+    },
+    "user2": {
+      "username": "gncu123456790",
+      "password": "your-user2-password",
+      "tenant_id": "0123456789abcdf0",
+      "public_key": "your-registered-public-key-name"
+    }
+  }
+}
+```
+
+```sh
+conoha authenticate user1
+
+conoha whoami
+#=> user1
+
+conoha create ubuntu g-1gb
+# Create VM of user1
+
+conoha authenticate user2
+
+conoha whoami
+#=> user2
+
+conoha create ubuntu g-1gb
+# Create VM of user2
+```
+
 ## License
 
 [MIT](LICENSE.txt)
