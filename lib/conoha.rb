@@ -129,6 +129,7 @@ class Conoha
   def self.ip_address_of(server_id)
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
     res = https_get uri, authtoken
+    # NOTE: values[1] is needed if eth1 exists.
     JSON.parse(res.body)["server"]["addresses"].values[0].map{ |e| e["addr"] }
   end
 
