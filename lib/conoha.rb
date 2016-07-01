@@ -107,7 +107,7 @@ class Conoha
   end
 
   def self.rebuild(server_id, os)
-    image_ref_from_image_tag(image_tag_dictionary(os))
+    image_ref = image_ref_from_image_tag(image_tag_dictionary(os))
     uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
     payload = {
       rebuild: {
