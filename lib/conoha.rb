@@ -7,8 +7,12 @@ class Conoha
     load_config!
   end
 
+  def self.region
+    @@region || 'tyo1'
+  end
+
   def self.authenticate!
-    uri = 'https://identity.tyo1.conoha.io/v2.0/tokens'
+    uri = "https://identity.#{region}.conoha.io/v2.0/tokens"
     payload = {
         auth: {
           passwordCredentials: {
@@ -27,7 +31,7 @@ class Conoha
   end
 
   def self.authenticate_user!(user_id)
-    uri = 'https://identity.tyo1.conoha.io/v2.0/tokens'
+    uri = "https://identity.#{region}.conoha.io/v2.0/tokens"
 
     credential = @@accounts[user_id]
     if credential.nil?
@@ -78,7 +82,7 @@ class Conoha
   end
 
   def self.servers
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers"
     res = https_get uri, authtoken
     JSON.parse(res.body)["servers"]
   end
@@ -92,7 +96,7 @@ class Conoha
   #   when "image_tag" doesn't exist in images
   def self.create(os, ram)
     image_ref = image_ref_from_image_tag(image_tag_dictionary(os))
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers"
     payload = {
       server: {
         adminPass: randstr,
@@ -108,7 +112,7 @@ class Conoha
 
   def self.rebuild(server_id, os)
     image_ref = image_ref_from_image_tag(image_tag_dictionary(os))
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
     payload = {
       rebuild: {
         imageRef: image_ref,
@@ -121,27 +125,27 @@ class Conoha
   end
 
   def self.delete(server_id)
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
     res = https_delete uri, authtoken
     res.code == '204' ? 'OK' : 'Error'
   end
 
   def self.ip_address_of(server_id)
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
     res = https_get uri, authtoken
     # NOTE: values[1] is needed if eth1 exists.
     JSON.parse(res.body)["server"]["addresses"].values[0].map{ |e| e["addr"] }
   end
 
   def self.status_of(server_id)
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers/#{server_id}"
     res = https_get uri, authtoken
     JSON.parse(res.body)["server"]["status"]
   end
 
   # @param [String] action "os-start" or "os-stop"
   def self.server_action(server_id, action)
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
     res = https_post uri, {action => nil}, authtoken
     res.code == '202' ? 'OK' : 'Error'
   end
@@ -155,25 +159,25 @@ class Conoha
   end
 
   def self.images
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/images"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/images"
     res = https_get uri, authtoken
     JSON.parse(res.body)["images"].map { |e| [e["name"], e["id"]] }
   end
 
   def self.create_image(server_id, name)
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
     res = https_post uri, {"createImage" => {"name" => name}}, authtoken
     res.code == '202' ? 'OK' : 'Error'
   end
 
   def self.delete_image(image_ref)
-    uri = "https://image-service.tyo1.conoha.io/v2/images/#{image_ref}"
+    uri = "https://image-service.#{region}.conoha.io/v2/images/#{image_ref}"
     res = https_delete uri, authtoken
     res.code == '204' ? 'OK' : 'Error'
   end
 
   def self.create_from_image(image_ref, ram)
-    uri = "https://compute.tyo1.conoha.io/v2/#{tenant_id}/servers"
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers"
     payload = {
       server: {
         adminPass: randstr,
@@ -221,6 +225,7 @@ EOS
       config = JSON.parse config_file_string
       @@username = config["username"]
       @@password = config["password"]
+      @@region = config["region"]
       @@tenant_id = config["tenant_id"]
       @@public_key = config["public_key"]
       @@authtoken = config["authtoken"]
@@ -233,6 +238,7 @@ EOS
     s = JSON.generate({
       username: @@username,
       password: @@password,
+      region: @@region,
       tenant_id: @@tenant_id,
       public_key: @@public_key,
       authtoken: @@authtoken,

@@ -39,10 +39,13 @@ Create `~/.conoha-config.json` like following:
 {
   "username": "gncu123456789",
   "password": "your-password",
+  "region": "tyo1",
   "tenant_id": "0123456789abcdef",
   "public_key": "your-registered-public-key-name"
 }
 ```
+
+You can select a region from `"tyo1"` (Tokyo), `"sin1"` (Singapore) and `"sjc1"` (USA).
 
 You should run `chmod 600 ~/.conoha-config.json`.
 
