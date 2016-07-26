@@ -152,6 +152,9 @@ when 'dump'
     puts '# Error! Retry after 60 seconds...'
   end
   puts '# OK!'
+when 'nametag'
+  exit 1 if ARGV.size < 1
+  puts Conoha.name_tag server_id(ARGV.first)
 else
   STDERR.puts 'Error'
 end

@@ -198,6 +198,12 @@ class Conoha
     JSON.parse(res.body)["server"]["id"]
   end
 
+  def self.name_tag(server_id)
+    uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers/#{server_id}/metadata"
+    res = https_get uri, authtoken
+    JSON.parse(res.body)["metadata"]["instance_name_tag"]
+  end
+
   private
 
   @@config_loaded = false
