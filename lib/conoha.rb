@@ -91,10 +91,13 @@ class Conoha
     servers.map { |e| e["id"] }
   end
 
+  # @param [String] os
+  # @param [String] ram
+  # @param [String] name_tag (default: nil)
   # @raise [StandardError]
   #   when "os" doesn't exist in image_tag_dictionary
   #   when "image_tag" doesn't exist in images
-  def self.create(os, ram)
+  def self.create(os, ram, name_tag = nil)
     image_ref = image_ref_from_image_tag(image_tag_dictionary(os))
     uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers"
     payload = {
@@ -106,6 +109,9 @@ class Conoha
         security_groups: [{name: 'default'}, {name: 'gncs-ipv4-all'}],
       }
     }
+    if name_tag
+      payload[:server].merge!({metadata: {instance_name_tag: name_tag}})
+    end
     res = https_post uri, payload, authtoken
     JSON.parse(res.body)["server"]["id"]
   end

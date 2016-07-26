@@ -60,6 +60,7 @@ conoha create ubuntu g-1gb
 # Create VPSs with other options
 conoha create centos72 g-2gb
 conoha create arch g-4gb
+conoha create ubuntu g-1gb nametagasyoulike
 
 # You can check VPS UUIDs
 conoha vpslist
