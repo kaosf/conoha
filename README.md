@@ -76,6 +76,11 @@ conoha shutdown 01234567-89ab-cdef-0123-456789abcdef
 # Boot VPS
 conoha boot 01234567-89ab-cdef-0123-456789abcdef
 
+# Reboot VPS
+conoha reboot 01234567-89ab-cdef-0123-456789abcdef      # Shutdown -> Boot
+conoha reboot 01234567-89ab-cdef-0123-456789abcdef hard # Force shutdown -> Boot
+# For more information, ref. https://www.conoha.jp/docs/compute-reboot_vm.html
+
 # Rebuild (Re-install the OS)
 conoha rebuild 01234567-89ab-cdef-0123-456789abcdef ubuntu
 

@@ -88,6 +88,13 @@ when 'boot'
 when 'shutdown'
   exit 1 if ARGV.size != 1
   puts Conoha.shutdown server_id(ARGV.first)
+when 'reboot'
+  exit 1 if ARGV.size < 1
+  if ARGV[1] == 'hard' || ARGV[1] == 'HARD'
+    puts Conoha.reboot server_id(ARGV.first), 'HARD'
+  else
+    puts Conoha.reboot server_id(ARGV.first)
+  end
 when 'imagelist'
   pp Conoha.images
 when 'imagecreate'

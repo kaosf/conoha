@@ -143,10 +143,11 @@ class Conoha
     JSON.parse(res.body)["server"]["status"]
   end
 
-  # @param [String] action "os-start" or "os-stop"
-  def self.server_action(server_id, action)
+  # @param [String] action "os-start", "os-stop" or "reboot"
+  # @param [Hash|nil] action_value (default: nil)
+  def self.server_action(server_id, action, action_value = nil)
     uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers/#{server_id}/action"
-    res = https_post uri, {action => nil}, authtoken
+    res = https_post uri, {action => action_value}, authtoken
     res.code == '202' ? 'OK' : 'Error'
   end
 
@@ -156,6 +157,12 @@ class Conoha
 
   def self.shutdown(server_id)
     server_action server_id, "os-stop"
+  end
+
+  # @param [String] server_id
+  # @param [String] type "SOFT" or "HARD" (ref. https://www.conoha.jp/docs/compute-reboot_vm.html)
+  def self.reboot(server_id, type = "SOFT")
+    server_action(server_id, "reboot", { "type" => type })
   end
 
   def self.images
