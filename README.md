@@ -120,6 +120,9 @@ conoha dump 01234567-89ab-cdef-0123-456789abcdef something-backup
 
 # Restore VPS (just a synonym of "createfromimage")
 conoha restore something-backup
+
+# Get name tag
+conoha nametag 01234567-89ab-cdef-0123-456789abcdef
 ```
 
 ## Test
