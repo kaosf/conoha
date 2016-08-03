@@ -242,6 +242,9 @@ when 'sftp'
   command = "sftp #{ipaddress}"
   puts command
   system command
+when 'ipaddress'
+  server_id = status['id']
+  puts ipv4(Conoha.ip_address_of(server_id))
 else
   STDERR.puts 'Invalid argument.'
   exit 1
