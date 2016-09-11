@@ -78,6 +78,7 @@ def image_tag_dictionary(os)
     'openbsd'  => 'vmi-openbsd-5.8-amd64', # OpenBSD
     'netbsd'   => 'vmi-netbsd-7.0-amd64', # NetBSD
     'freebsd'  => 'vmi-freebsd-10.1-x86_64', # FreeBSD
+    'docker'   => 'vmi-docker-1.12-ubuntu-16.04', # Docker on Ubuntu 16.04
   }
 
   if dictionary.keys.include? os
