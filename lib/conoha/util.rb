@@ -66,7 +66,9 @@ end
 # @raise [StandardError] When the OS name isn't included in the dictionary.
 def image_tag_dictionary(os)
   dictionary = {
-    'ubuntu'   => 'vmi-ubuntu-14.04-amd64', # Ubuntu 14.04 amd64
+    'ubuntu'   => 'vmi-ubuntu-16.04-amd64', # Ubuntu 16.04 amd64
+    'ubuntu16' => 'vmi-ubuntu-16.04-amd64', # Ubuntu 16.04 amd64
+    'ubuntu14' => 'vmi-ubuntu-14.04-amd64', # Ubuntu 14.04 amd64
     'debian'   => 'vmi-debian-8-amd64', # Debian 8 amd64
     'fedora23' => 'vmi-fedora-23-amd64', # Fedora 23 amd64
     'centos67' => 'vmi-centos-6.7-amd64', # CentOS 6.7
