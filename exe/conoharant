@@ -24,6 +24,15 @@ ram: g-1gb
 # ram: g-2gb
 # ram: g-4gb
 # ram: g-8gb
+
+# os: centos72-20gb
+# os: fedora24-20gb
+# os: centos67-20gb
+# os: debian-20gb
+# os: ubuntu-20gb
+# os: arch-20gb
+# ram: g-512mb
+
 tagprefix: randomname#{SecureRandom.uuid[0, 8]}
 EOF
       )
