@@ -173,6 +173,7 @@ conoharant ssh username
 conoharant mosh
 conoharant mosh username
 conoharant sftp
+conoharant sftp username
 conoharant dump
 conoharant restore
 conoharant clean

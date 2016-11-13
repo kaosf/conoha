@@ -239,7 +239,8 @@ when 'browse'
 when 'sftp'
   server_id = status['id']
   ipaddress = ipv4(Conoha.ip_address_of(server_id))
-  command = "sftp #{ipaddress}"
+  user = ARGV[1].nil? ? '' : "#{ARGV[1]}@"
+  command = "sftp #{user}#{ipaddress}"
   puts command
   system command
 when 'ipaddress'
