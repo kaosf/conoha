@@ -62,6 +62,12 @@ conoha create centos72 g-2gb
 conoha create arch g-4gb
 conoha create ubuntu g-1gb nametagasyoulike
 
+# Create VPS 512MB RAM
+# You must use the image tag with "-20gb"
+conoha create centos72-20gb g-512mb
+conoha create arch-20gb g-512mb
+conoha create ubuntu-20gb g-512mb nametagasyoulike
+
 # You can check VPS UUIDs
 conoha vpslist
 
