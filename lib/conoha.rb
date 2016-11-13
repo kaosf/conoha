@@ -294,13 +294,13 @@ EOS
   def self.flavor_ref(ram)
     dictionary = {
       'g-512mb' => 'd92b02ce-9a4f-4544-8d7f-ae8380bc08e7',
-      'g-1gb'  => '7eea7469-0d85-4f82-8050-6ae742394681',
-      'g-2gb'  => '294639c7-72ba-43a5-8ff2-513c8995b869',
-      'g-4gb'  => '62e8fb4b-6a26-46cd-be13-e5bbf5614d15',
-      'g-8gb'  => '965affd4-d9e8-4ffb-b9a9-624d63e2d83f',
-      'g-16gb' => '3aa001cd-95b6-46c9-a91e-e62d6f7f06a3',
-      'g-32gb' => 'a20905c6-3733-46c4-81cc-458c7dca1bae',
-      'g-64gb' => 'c2a97b05-1b4b-4038-bbcb-343201659279',
+      'g-1gb'   => '7eea7469-0d85-4f82-8050-6ae742394681',
+      'g-2gb'   => '294639c7-72ba-43a5-8ff2-513c8995b869',
+      'g-4gb'   => '62e8fb4b-6a26-46cd-be13-e5bbf5614d15',
+      'g-8gb'   => '965affd4-d9e8-4ffb-b9a9-624d63e2d83f',
+      'g-16gb'  => '3aa001cd-95b6-46c9-a91e-e62d6f7f06a3',
+      'g-32gb'  => 'a20905c6-3733-46c4-81cc-458c7dca1bae',
+      'g-64gb'  => 'c2a97b05-1b4b-4038-bbcb-343201659279',
     }
     if dictionary.keys.include? ram
       dictionary[ram]
