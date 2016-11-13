@@ -70,14 +70,14 @@ def image_tag_dictionary(os)
     'ubuntu16' => 'vmi-ubuntu-16.04-amd64', # Ubuntu 16.04 amd64
     'ubuntu14' => 'vmi-ubuntu-14.04-amd64', # Ubuntu 14.04 amd64
     'debian'   => 'vmi-debian-8-amd64', # Debian 8 amd64
-    'fedora23' => 'vmi-fedora-23-amd64', # Fedora 23 amd64
+    'fedora24' => 'vmi-fedora-24-amd64', # Fedora 24 amd64
     'centos67' => 'vmi-centos-6.7-amd64', # CentOS 6.7
     'centos72' => 'vmi-centos-7.2-amd64', # CentOS 7.2
     'arch'     => 'vmi-arch-amd64', # Arch
     'opensuse' => 'vmi-opensuse-42.1-amd64', # openSUSE
-    'openbsd'  => 'vmi-openbsd-5.8-amd64', # OpenBSD
+    'openbsd'  => 'vmi-openbsd-6.0-amd64', # OpenBSD
     'netbsd'   => 'vmi-netbsd-7.0-amd64', # NetBSD
-    'freebsd'  => 'vmi-freebsd-10.1-x86_64', # FreeBSD
+    'freebsd'  => 'vmi-freebsd-10.3-x86_64', # FreeBSD
     'docker'   => 'vmi-docker-1.12-ubuntu-16.04', # Docker on Ubuntu 16.04
   }
 
