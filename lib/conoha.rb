@@ -293,6 +293,7 @@ EOS
 
   def self.flavor_ref(ram)
     dictionary = {
+      'g-512mb' => 'd92b02ce-9a4f-4544-8d7f-ae8380bc08e7',
       'g-1gb'  => '7eea7469-0d85-4f82-8050-6ae742394681',
       'g-2gb'  => '294639c7-72ba-43a5-8ff2-513c8995b869',
       'g-4gb'  => '62e8fb4b-6a26-46cd-be13-e5bbf5614d15',
