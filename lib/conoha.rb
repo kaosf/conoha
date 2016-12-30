@@ -2,6 +2,7 @@ require 'conoha/version'
 require 'conoha/util'
 require 'json'
 
+# :nocov:
 class Conoha
   def self.init!
     load_config!
