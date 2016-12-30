@@ -14,15 +14,7 @@ class Conoha
 
   def self.authenticate!
     uri = "https://identity.#{region}.conoha.io/v2.0/tokens"
-    payload = {
-        auth: {
-          passwordCredentials: {
-            username: @@username,
-            password: @@password
-          },
-          tenantId: @@tenant_id
-        }
-      }
+    payload = payload_for_authentication @@username, @@password, @@tenant_id
     res = https_post uri, payload, nil
     if res.code == '401'
       raise StandardError.new 'Authentication failure'
@@ -39,15 +31,7 @@ class Conoha
       raise StandardError.new "User \"#{user_id}\" doesn't exist."
     end
 
-    payload = {
-        auth: {
-          passwordCredentials: {
-            username: credential['username'],
-            password: credential['password']
-          },
-          tenantId: credential['tenant_id']
-        }
-      }
+    payload = payload_for_authentication credential['username'], credential['password'], credential['tenant_id']
     res = https_post uri, payload, nil
     if res.code == '401'
       raise StandardError.new 'Authentication failure'
@@ -301,6 +285,18 @@ EOS
 
   def self.randstr
     (1..60).map{['0'..'9','a'..'z','A'..'Z'].map(&:to_a).flatten.sample}.join
+  end
+
+  def self.payload_for_authentication username, password, tenant_id
+    {
+      auth: {
+        passwordCredentials: {
+          username: username,
+          password: password
+        },
+        tenantId: tenant_id
+      }
+    }
   end
 
   # @param [String] image_ref
