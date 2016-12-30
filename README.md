@@ -3,6 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/conoha.svg)](http://badge.fury.io/rb/conoha)
 [![Dependency Status](https://gemnasium.com/kaosf/conoha.svg)](https://gemnasium.com/kaosf/conoha)
 [![Build Status](https://travis-ci.org/kaosf/conoha.svg)](https://travis-ci.org/kaosf/conoha)
+[![Coverage Status](https://coveralls.io/repos/github/kaosf/conoha/badge.svg?branch=master)](https://coveralls.io/github/kaosf/conoha?branch=master)
 [![Code Climate](https://codeclimate.com/github/kaosf/conoha/badges/gpa.svg)](https://codeclimate.com/github/kaosf/conoha)
 
 CLI tool for management ConoHa VPS.
