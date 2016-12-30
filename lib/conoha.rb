@@ -37,11 +37,8 @@ class Conoha
       raise StandardError.new 'Authentication failure'
     end
 
-    @@username = credential['username']
-    @@password = credential['password']
-    @@tenant_id = credential['tenant_id']
-    @@public_key = credential['public_key']
-    @@authtoken = JSON.parse(res.body)["access"]["token"]["id"]
+    auth_token = JSON.parse(res.body)["access"]["token"]["id"]
+    set_class_variables_from_credential! credential, auth_token
     save_config!
   end
 
@@ -220,6 +217,14 @@ EOS
       @@accounts = config["accounts"]
       @@config_loaded = true
     end
+  end
+
+  def self.set_class_variables_from_credential! credential, auth_token
+    @@username = credential['username']
+    @@password = credential['password']
+    @@tenant_id = credential['tenant_id']
+    @@public_key = credential['public_key']
+    @@authtoken = authtoken
   end
 
   def self.save_config!
