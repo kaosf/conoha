@@ -101,15 +101,7 @@ class Conoha
   def self.create(os, ram, name_tag = nil)
     image_ref = image_ref_from_image_tag(image_tag_dictionary(os))
     uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers"
-    payload = {
-      server: {
-        adminPass: randstr,
-        imageRef: image_ref,
-        flavorRef: flavor_ref(ram),
-        key_name: public_key,
-        security_groups: [{name: 'default'}, {name: 'gncs-ipv4-all'}],
-      }
-    }
+    payload = payload_for_create_vps image_ref, ram, public_key
     if name_tag
       payload[:server].merge!({metadata: {instance_name_tag: name_tag}})
     end
@@ -192,15 +184,7 @@ class Conoha
 
   def self.create_from_image(image_ref, ram)
     uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers"
-    payload = {
-      server: {
-        adminPass: randstr,
-        imageRef: image_ref,
-        flavorRef: flavor_ref(ram),
-        key_name: public_key,
-        security_groups: [{name: 'default'}, {name: 'gncs-ipv4-all'}],
-      }
-    }
+    payload = payload_for_create_vps image_ref, ram, public_key
     res = https_post uri, payload, authtoken
     JSON.parse(res.body)["server"]["id"]
   end
@@ -317,5 +301,20 @@ EOS
 
   def self.randstr
     (1..60).map{['0'..'9','a'..'z','A'..'Z'].map(&:to_a).flatten.sample}.join
+  end
+
+  # @param [String] image_ref
+  # @param [String] ram
+  # @param [String] public_key
+  def self.payload_for_create_vps image_ref, ram, public_key
+    {
+      server: {
+        adminPass: randstr,
+        imageRef: image_ref,
+        flavorRef: flavor_ref(ram),
+        key_name: public_key,
+        security_groups: [{name: 'default'}, {name: 'gncs-ipv4-all'}],
+      }
+    }
   end
 end
