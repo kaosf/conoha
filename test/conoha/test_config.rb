@@ -6,8 +6,14 @@ class TestConohaConfig < Test::Unit::TestCase
     @config = Conoha::Config.new
   end
 
-  test '#load_from_yaml!' do
-    #pending
+  sub_test_case '#load_from_yaml!' do
+    test 'normal' do
+      assert_nothing_raised { @config.load_from_yaml! 'a: 1' }
+    end
+
+    test 'return value is an Array' do
+      assert_raise(Conoha::Config::Error) { @config.load_from_yaml! '[]' }
+    end
   end
 
   sub_test_case '#load_from_json!' do
