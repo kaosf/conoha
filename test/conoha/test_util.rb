@@ -33,4 +33,14 @@ class TestConohaUtil < Test::Unit::TestCase
     actual = ipv4 input
     assert_equal expected, actual
   end
+
+  sub_test_case 'image_tag_dictionary' do
+    test 'normal' do
+      assert_equal 'vmi-ubuntu-16.04-amd64', image_tag_dictionary('ubuntu')
+    end
+
+    test 'no index' do
+      assert_raise(StandardError) { image_tag_dictionary 'invalid-os' }
+    end
+  end
 end
