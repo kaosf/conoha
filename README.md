@@ -136,12 +136,6 @@ conoha nametag 01234567-89ab-cdef-0123-456789abcdef
 ## Test
 
 ```sh
-ruby test/run_test.rb
-```
-
-or
-
-```sh
 rake
 ```
 
