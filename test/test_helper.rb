@@ -1,7 +1,6 @@
 require 'simplecov'
 require 'coveralls'
 require 'test/unit'
-require 'test/unit/notify'
 require 'test/unit/rr'
 
 Coveralls.wear!
