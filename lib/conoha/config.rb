@@ -4,8 +4,7 @@ class Conoha
   class Config
     attr_reader :username, :password, :tenant_id, :public_key, :authtoken
 
-    class Error < StandardError
-    end
+    class Error < StandardError; end
 
     def load_from_yaml!(yaml_str)
       loaded = YAML.load yaml_str
