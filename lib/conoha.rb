@@ -261,7 +261,7 @@ EOS
     if image = images.find { |e| e[0] == image_tag }
       image[1]
     else
-      raise StandardError.new "Tag \"#{tag}\" doesn't exist in image list."
+      raise StandardError.new "Tag \"#{image_tag}\" doesn't exist in image list."
     end
   end
 
