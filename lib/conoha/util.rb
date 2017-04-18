@@ -78,7 +78,7 @@ def image_tag_dictionary(os)
     'openbsd'  => 'vmi-openbsd-6.0-amd64', # OpenBSD
     'netbsd'   => 'vmi-netbsd-7.0-amd64', # NetBSD
     'freebsd'  => 'vmi-freebsd-10.3-x86_64', # FreeBSD
-    'docker'   => 'vmi-docker-1.12-ubuntu-16.04', # Docker on Ubuntu 16.04
+    'docker'   => 'vmi-docker-17.03-ubuntu-16.04-unified', # Docker on Ubuntu 16.04
 
     # 20GB storage for 512MB RAM
     'ubuntu-20gb'   => 'vmi-ubuntu-16.04-amd64-20gb',
@@ -93,7 +93,7 @@ def image_tag_dictionary(os)
     'openbsd-20gb'  => 'vmi-openbsd-6.0-amd64-20gb',
     'netbsd-20gb'   => 'vmi-netbsd-7.0-amd64-20gb',
     'freebsd-20gb'  => 'vmi-freebsd-10.3-amd64-20gb',
-    'docker-20gb'   => 'vmi-docker-1.12-ubuntu-16.04-20gb',
+    'docker-20gb'   => 'vmi-docker-17.03-ubuntu-16.04-unified-20gb',
   }
 
   if dictionary.keys.include? os
