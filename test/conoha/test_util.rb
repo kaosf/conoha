@@ -36,7 +36,7 @@ class TestConohaUtil < Test::Unit::TestCase
 
   sub_test_case 'image_tag_dictionary' do
     test 'normal' do
-      assert_equal 'vmi-ubuntu-16.04-amd64', image_tag_dictionary('ubuntu')
+      assert_equal 'vmi-ubuntu-16.04-amd64-unified', image_tag_dictionary('ubuntu')
     end
 
     test 'no index' do
