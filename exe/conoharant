@@ -153,6 +153,14 @@ when 'destroy'
   status['id'] = nil
   dump_conoharant_status status
   puts "# OK!"
+when 'rebuild'
+  if status['status'] == 'nothing'
+    puts "# There is no instance."
+    exit 1
+  end
+  puts "conoha rebuild #{status['id']}"
+  Conoha.rebuild status['id'], config['os']
+  puts "# OK!"
 when 'ssh', 'mosh'
   connection = arg # 'ssh' or 'mosh'
   if status['status'] != 'running'

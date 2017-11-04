@@ -185,6 +185,7 @@ conoharant browse 3000
 conoharant halt
 conoharant shutdown
 conoharant destroy
+conoharant rebuild
 conoharant ipaddress
 ```
 
