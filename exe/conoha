@@ -109,7 +109,8 @@ when 'createfromimage', 'restore'
   exit 1 if ARGV.size < 1
   image_ref = image_ref_or_name ARGV[0]
   ram = ARGV[1] || 'g-1gb'
-  puts Conoha.create_from_image image_ref, ram
+  user_data = (ARGV[2] == '--user-data' ? ARGV[3] : nil)
+  puts Conoha.create_from_image image_ref, ram, user_data: user_data
 when 'ssh'
   exit 1 if ARGV.size < 1 || 2 < ARGV.size
   ipaddress = ipv4(Conoha.ip_address_of(server_id(ARGV.first)))

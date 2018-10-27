@@ -76,13 +76,14 @@ class Conoha
   # @param [String] os
   # @param [String] ram
   # @param [String] name_tag (default: nil)
+  # @option [String] user_data
   # @raise [StandardError]
   #   when "os" doesn't exist in image_tag_dictionary
   #   when "image_tag" doesn't exist in images
-  def self.create(os, ram, name_tag = nil)
+  def self.create(os, ram, name_tag = nil, user_data: nil)
     image_ref = image_ref_from_image_tag(image_tag_dictionary(os))
     uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers"
-    payload = payload_for_create_vps image_ref, ram, public_key
+    payload = payload_for_create_vps image_ref, ram, public_key, user_data: user_data
     if name_tag
       payload[:server].merge!({metadata: {instance_name_tag: name_tag}})
     end
@@ -163,9 +164,9 @@ class Conoha
     res.code == '204' ? 'OK' : 'Error'
   end
 
-  def self.create_from_image(image_ref, ram)
+  def self.create_from_image(image_ref, ram, user_data: nil)
     uri = "https://compute.#{region}.conoha.io/v2/#{tenant_id}/servers"
-    payload = payload_for_create_vps image_ref, ram, public_key
+    payload = payload_for_create_vps image_ref, ram, public_key, user_data: user_data
     res = https_post uri, payload, authtoken
     JSON.parse(res.body)["server"]["id"]
   end
@@ -307,15 +308,19 @@ EOS
   # @param [String] image_ref
   # @param [String] ram
   # @param [String] public_key
-  def self.payload_for_create_vps image_ref, ram, public_key
-    {
-      server: {
-        adminPass: randstr,
-        imageRef: image_ref,
-        flavorRef: flavor_ref(ram),
-        key_name: public_key,
-        security_groups: [{name: 'default'}, {name: 'gncs-ipv4-all'}],
+  # @option [String] user_data
+  def self.payload_for_create_vps image_ref, ram, public_key, user_data: nil
+    ret =
+      {
+        server: {
+          adminPass: randstr,
+          imageRef: image_ref,
+          flavorRef: flavor_ref(ram),
+          key_name: public_key,
+          security_groups: [{name: 'default'}, {name: 'gncs-ipv4-all'}],
+        }
       }
-    }
+    ret[:server].merge!({ user_data: user_data }) if user_data
+    ret
   end
 end

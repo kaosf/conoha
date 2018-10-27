@@ -109,6 +109,20 @@ conoha createfromimage fedcba98-7654-3210-fedc-ba9876543210 g-1gb
 conoha createfromimage ubuntu-backup g-1gb
 # You can remove the last argument (default value is "g-1gb")
 conoha createfromimage fedcba98-7654-3210-fedc-ba9876543210
+# You can specify the user_data.
+# More information:
+#   https://www.conoha.jp/guide/startupscript.php
+#   https://www.conoha.jp/docs/compute-create_vm.html
+# "g-1gb" (or any other RAM specification) is required now, because
+# "--user-data" and "BASE64_STRING" are detected by their argument position
+# (4th and 5th), sorry for my poor implementation...
+conoha createfromimage fedcba98-7654-3210-fedc-ba9876543210 g-1gb --user-data BASE64_STRING
+# You can get BASE64_STRING from like a following command e.g.
+cat <<EOF | base64 -w
+#!/bin/bash
+
+apt-get -y install nginx
+EOF
 
 # SSH
 conoha ssh 01234567-89ab-cdef-0123-456789abcdef root     # ssh root@ipaddress
